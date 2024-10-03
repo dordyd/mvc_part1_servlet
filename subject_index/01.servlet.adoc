@@ -97,8 +97,44 @@ TIP: JSON 형식 -> {"datafieldname1": dataValue1, "datafieldname2": dataValue2,
 
 ### query Parameter 실습
 
+#### 요구사항: id, username, age를 가진 데이터를 /request-json으로 받을 수 있게 해주세요
+
 * url-mapping: /request-param
-* param: username, age
+* param: id, username, age
+* HelloData
+** id -> Long, NonNull
+** username -> String, NotEmpty
+** age -> int, Range(19~100)
+* url-mapping: /request-json
+
+[source,java]
+----
+/**
+ * JSON 형식 전송
+ *
+ * content-type -> json
+ * message body: {"id": 1, "username":"hello", "age":20}
+ */
+@WebServlet(name="requestBodyJsonServlet", urlPatterns = "/request-json")
+public class RequestBodyJsonServlet extends HttpServlet {
+    ObjectMapper objectMapper = new ObjectMapper();
+    // objectmapper를 이용해 json 형식으로 전달받은 body data를 특정 객체로 변환
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        ServletInputStream inputStream = request.getInputStream();
+        String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+
+        HelloData data = objectMapper.readValue(messageBody, HelloData.class);
+        System.out.println(data);
+        response.getWriter().write(data.toString());
+    }
+}
+----
+
+
+
+
 
 
 
