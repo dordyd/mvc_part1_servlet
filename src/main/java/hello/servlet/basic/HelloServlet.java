@@ -1,4 +1,4 @@
-package hello.servlet.example;
+package hello.servlet.basic;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "exampleServlet", urlPatterns = "/example")
-public class ExampleServlet extends HttpServlet {
+public class HelloServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
