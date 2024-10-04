@@ -1,4 +1,4 @@
-package hello.servlet.domain;
+package hello.servlet.domain.member;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+//@Service
 @Component
 @Qualifier("memoryMemberRepository")
 public class MemoryMemberRepository implements MemberRepository{
