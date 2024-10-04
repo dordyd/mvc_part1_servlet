@@ -1,0 +1,25 @@
+# MVC Framework
+
+* 스프링 웹 mvc에는 이전 02강의에서 dispatcherServlet이 FrontController로 구현되어져 있음
+
+NOTE: 기존에는 bean으로 주입받아서 작성하는 코드였으나, map에 넣을때 NoArgs생성자를 만들어야 해서 일단은 MemberRepository 에서 필요한 코드들을 주석처리 후 싱글톤 직접 구현
+
+
+### 프론트 컨트롤러 도입 - V1
+
+
+1. 요청시 url 매핑해서 컨트롤러 조회
+2. 컨트롤러 호출
+3. jsp forward(렌더링을 하기 위해 view 전달)
+
+###### 내부 로직은 거의 동일하다.
+
+컨트롤러 분석
+
+* 하나의 frontController를 통해서만 접속이 가능하게 바꿈(ControllerV1.java)
+* frontController를 거치지 않으면 하위 컨트롤러는 생성조차 되지 않음
+* controllerMap을 통해서 구현함
+* service라는 controller들의 비지니스 로직을 넣음
+* URI에 따라서 호출하는 컨트롤러를 구별
+
+

@@ -10,12 +10,16 @@ import java.util.List;
 import java.util.Map;
 
 //@Service
-@Component
-@Qualifier("memoryMemberRepository")
+//@Component
+//@Qualifier("memoryMemberRepository")
 public class MemoryMemberRepository implements MemberRepository{
     private static Map<Long, Member> store = new HashMap<>();
 
     private static Long sequence = 0L;
+
+    public static MemoryMemberRepository getInstance(){
+        return new MemoryMemberRepository();
+    }
 
     @Override
     public Member save(Member member) {
