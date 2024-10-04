@@ -10,7 +10,7 @@ NOTE: 기존에는 bean으로 주입받아서 작성하는 코드였으나, map�
 
 1. 요청시 url 매핑해서 컨트롤러 조회
 2. 컨트롤러 호출
-3. jsp forward(렌더링을 하기 위해 view 전달)
+3. jsp forward
 
 ###### 내부 로직은 거의 동일하다.
 
@@ -23,3 +23,45 @@ NOTE: 기존에는 bean으로 주입받아서 작성하는 코드였으나, map�
 * URI에 따라서 호출하는 컨트롤러를 구별
 
 
+### View 분리 - V2
+
+1. 요청시 url 매핑해서 컨트롤러 조회
+2. 컨트롤러 호출
+3. 컨트롤러에서 view 반환
+4. front controller에서 render()로 호출
+3. jsp forward
+
+컨트롤러 분석
+
+* 하나의 frontController를 통해서만 접속이 가능하게 바꿈(ControllerV1.java)
+* frontController를 거치지 않으면 하위 컨트롤러는 생성조차 되지 않음
+* controllerMap을 통해서 구현함
+* service라는 controller들의 비지니스 로직을 넣음
+* URI에 따라서 호출하는 컨트롤러를 구별
+
+v1과의 큰 차이는 MyView라는 객체를 통해서 suffix, perfix 중복 최소화,
+MyView(view)를 랜더링 시킬 수 있게 일관성이 생김
+
+### Model 추가 - V3
+
+NOTE: v2까지 확인해보면 실제론 컨트롤러 입장에선 request, response가 필요가 없다. 요정청보를 Map으로 넘겨도 컨트롤러는 서블릿 기술을 몰라도 동작한다.
+request 객체를 Model이라는 별도의 객체를 만들어서 반환하
+
+1. 요청시 url 매핑해서 컨트롤러 조회
+2. 컨트롤러 호출
+3. 컨트롤러에서 Modelview 반환
+4. front controller에서 viewResolver 호출(ModelView에서 받은 논리적인 정보를 실제 객체로 변환)
+** 논리적인 값이 필요한 이유는, 컨트롤러가 서블릿을 몰라도 되기 때문
+5. MyView 반환(실제 뷰 반환)
+6. MyView의 render 호출
+
+컨트롤러 분석
+
+* 하나의 frontController를 통해서만 접속이 가능하게 바꿈(ControllerV1.java)
+* frontController를 거치지 않으면 하위 컨트롤러는 생성조차 되지 않음
+* controllerMap을 통해서 구현함
+* service라는 controller들의 비지니스 로직을 넣음
+* URI에 따라서 호출하는 컨트롤러를 구별
+
+v1과의 큰 차이는 MyView라는 객체를 통해서 suffix, perfix 중복 최소화,
+MyView(view)를 랜더링 시킬 수 있게 일관성이 생김
