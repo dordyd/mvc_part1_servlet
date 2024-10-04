@@ -28,3 +28,27 @@ servlet의 request객체에 요청을 처리하기 위한 dispatcher를 사용�
 
 * dispatcher: frontController로서, 요청을 가장 처음 받는 컨트롤러라고 생각하자. 어떤 컨트롤러로 요청을 처리할지 정한다.
 
+mvc패턴 v1의 한계
+
+* 모든 서블릿에서 공통적으로 해당 코드를 호출한다.
+[source,java]
+----
+RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
+dispatcher.forward(request, response);
+----
+
+[source.java]
+----
+String viewPath = "/WEB-INF/views/new-form.jsp";
+----
+
+* 공통 부분
+** perfix: /WEB-INF/views/
+** suffix: .jsp
+
+* 사실상 response는 단 한번도 사용되지 않았다.
+
+* 공통처리가 어려움.
+
+* 위의 문제를 해결하기 위해 frontController를 도입
+
