@@ -65,3 +65,23 @@ request 객체를 Model이라는 별도의 객체를 만들어서 반환하
 
 v1과의 큰 차이는 MyView라는 객체를 통해서 suffix, perfix 중복 최소화,
 MyView(view)를 랜더링 시킬 수 있게 일관성이 생김
+
+### 단순하고 실용적인 컨트롤러 - V4
+
+1. 요청시 url 매핑해서 컨트롤러 조회
+2. 컨트롤러 호출(paramMap, model)
+3. 컨트롤러에서 viewName 반환
+4. front controller에서 viewResolver 호출(ModelView에서 받은 논리적인 정보를 실제 객체로 변환)
+5. MyView 반환(실제 뷰 반환)
+6. MyView의 render 호출
+
+컨트롤러 분석
+
+* 하나의 frontController를 통해서만 접속이 가능하게 바꿈(ControllerV1.java)
+* frontController를 거치지 않으면 하위 컨트롤러는 생성조차 되지 않음
+* controllerMap을 통해서 구현함
+* service라는 controller들의 비지니스 로직을 넣음
+* URI에 따라서 호출하는 컨트롤러를 구별
+
+v1과의 큰 차이는 MyView라는 객체를 통해서 suffix, perfix 중복 최소화,
+MyView(view)를 랜더링 시킬 수 있게 일관성이 생김
