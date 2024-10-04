@@ -24,6 +24,7 @@ view template 이다.
 ** *모델(Model)*: 컨트롤러에서 데이터를 전달받아 담아놓는 그릇, 화면을 렌더링 하는 일에 집중
 ** *뷰(View)*: 모델에 담긴 데이터를 이용해 html을 생성하여 화면을 그리는 역할
 
+servlet의 request객체에 요청을 처리하기 위한 dispatcher를 사용하자
 
-
+* dispatcher: frontController로서, 요청을 가장 처음 받는 컨트롤러라고 생각하자. 어떤 컨트롤러로 요청을 처리할지 정한다.
 
